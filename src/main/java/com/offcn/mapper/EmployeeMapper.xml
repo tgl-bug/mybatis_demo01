@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.mapper.EmployeeMapper">
+<!--    员工表-->
+    
+    <!--    <select id="getEmployeeById" resultMap="EmployeeResultMap">-->
+    <!--        select e.*,d.* from employee e,department d-->
+    <!--        where e.e_depart_id=d.d_id and e.e_id=#{id};-->
+    <!--    </select>-->
+    <!--    <resultMap id="EmployeeResultMap" type="Employee">-->
+    <!--        <id column="e_id" property="id"></id>-->
+    <!--        <result column="e_name" property="name"></result>-->
+    <!--        <result column="e_gender" property="gender"></result>-->
+    <!--        <result column="e_age" property="age"></result>-->
+    <!--        <association property="depart" javaType="Department">-->
+    <!--            <id column="d_id" property="id"></id>-->
+    <!--            <result column="d_name" property="name"></result>-->
+    <!--        </association>-->
+    <!--    </resultMap>-->
+
+
+<!--    多对一-->
+<!--    <select id="getEmployeeById" resultMap="EmployeeResultMap">-->
+    <!--        select * from employee where e_id=#{id};  -->
+    <!--    </select>-->
+    <!--    <resultMap id="EmployeeResultMap" type="Employee" extends="baseResultMap">-->
+    <!--        <association property="depart" javaType="Department" column="e_depart_id"-->
+    <!--                     select="com.offcn.mapper.DepartmentMapper.getDepartmentById">-->
+    <!--        </association>-->
+    <!--    </resultMap>-->
+    <!--    <resultMap id="baseResultMap" type="Employee">-->
+    <!--        <id column="e_id" property="id"></id>-->
+    <!--        <result column="e_name" property="name"></result>-->
+    <!--        <result column="e_gender" property="gender"></result>-->
+    <!--        <result column="e_age" property="age"></result>-->
+    <!--    </resultMap>-->
+    <!--</mapper>-->
+        <!--        association 用于映射多对一关系对象的，-->
+        <!--        Property 关联对象的复杂属性-->
+        <!--        javaType: 复杂属性的类型-->
+        <!--        Column:取结果集中指定类的值，作为select查询的输入值-->
+        <!--        Select: 指定另外一次查询-->
+<select id="getEmployeeByEDepartId" resultMap="baseResultMap">
+    select * from employee where e_depart_id=#{id};
+</select>
+        <resultMap id="baseResultMap" type="Employee">
+            <id column="e_id" property="id"></id>
+            <result column="e_name" property="name"></result>
+            <result column="e_gender" property="gender"></result>
+            <result column="e_age" property="age"></result>
+        </resultMap>
+</mapper>

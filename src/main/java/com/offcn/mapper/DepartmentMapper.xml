@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.mapper.DepartmentMapper">
+    
+<!--    <select id="getDepartmentById" resultMap="baseResultMap">-->
+<!--select * from department where d_id=#{id};-->
+<!--    </select>-->
+<!--    <resultMap id="baseResultMap" type="Department">-->
+<!--        <id column="d_id" property="id"></id>-->
+<!--        <result column="d_name" property="name"></result>-->
+<!--    </resultMap>-->
+
+
+
+
+
+<!--    联合查询-->
+<!--    <select id="getDepartmentById2" resultMap="DepartmentResultMap">-->
+<!--        select e.*,d.* from department d,employee e-->
+<!--        where e.e_depart_id=d.d_id and d.d_id=#{id};-->
+<!--    </select>-->
+<!--    <resultMap id="baseResultMap" type="Department">-->
+<!--        <id column="d_id" property="id"></id>-->
+<!--        <result column="d_name" property="name"></result>-->
+<!--    </resultMap>-->
+<!--    <resultMap id="DepartmentResultMap" type="Department" extends="baseResultMap">-->
+<!--        <collection property="emps" ofType="Employee">-->
+<!--            <id column="e_id" property="id"></id>-->
+<!--            <result column="e_name" property="name"></result>-->
+<!--            <result column="e_gender" property="gender"></result>-->
+<!--            <result column="e_age" property="age"></result>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+
+
+
+
+<!--    分表查询-->
+<select id="getDepartmentById2" resultMap="DepartmentResultMap" >
+    select * from department where d_id=#{id};
+</select>
+    <resultMap id="DepartmentResultMap" type="Department" extends="baseResultMap">
+        <collection property="emps" ofType="Employee"  column="d_id"
+        select="com.offcn.mapper.EmployeeMapper.getEmployeeByEDepartId">
+        </collection>
+    </resultMap>
+        <resultMap id="baseResultMap" type="Department">
+            <id column="d_id" property="id"></id>
+            <result column="d_name" property="name"></result>
+        </resultMap>
+</mapper>
